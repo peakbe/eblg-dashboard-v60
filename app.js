@@ -310,7 +310,6 @@ function limitNextFlights(list) {
 fids.arrivals = limitNextFlights(fids.arrivals);
 fids.departures = limitNextFlights(fids.departures);
 
-   renderNextFlights(fids.arrivals, fids.departures);
 
    function renderNextFlights(arrivals, departures) {
   const container = document.getElementById("next-flights");
