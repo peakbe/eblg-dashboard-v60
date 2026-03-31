@@ -97,7 +97,7 @@ function offsetPoint(lat, lng, distance_m, bearing_deg) {
 }
 
 // ======================================================
-// RUNWAY / CORRIDORS
+// RUNWAYS / CORRIDORS
 // ======================================================
 
 const RUNWAYS = {
@@ -251,7 +251,7 @@ function updateRunwayPanel(runway, windDir, windSpeed, phase) {
     panel.className = runway === "22" ? "runway-22" : "runway-04";
     panel.innerText =
         `Piste ${runway} (${r.heading}°) – ` +
-        `${phase === "landing" ? "Atterrissage" : "Décollage"} – ` +
+        `${phase === "landing" ? "Décollage/Atterrissage" : "Décollage"} – ` +
         `${info.crosswind} kt crosswind (Δ${info.angleDiff}°) – ` +
         `Vent ${windDir}°/${windSpeed} kt`;
 }
@@ -468,7 +468,7 @@ function updateFidsUI(data) {
     const flights = Array.isArray(data) ? data : [];
     container.innerHTML = "";
 
-        if (!flights.length) {
+    if (!flights.length) {
         container.innerHTML = `<div class="fids-row fids-unknown">Aucun vol disponible</div>`;
         return;
     }
@@ -499,7 +499,6 @@ function updateFidsUI(data) {
 // ======================================================
 
 function initMap() {
-
     map = L.map("map", {
         zoomControl: true,
         scrollWheelZoom: true
@@ -523,13 +522,31 @@ function initMap() {
     initSonometers(map);
 }
 
-document.getElementById("sono-header").onclick = () => {
-    const panel = document.getElementById("sono-panel");
-    const toggle = document.getElementById("sono-toggle");
+// ======================================================
+// UI INTERACTIONS (sidebar + sono)
+// ======================================================
 
-    panel.classList.toggle("expanded");
-    toggle.textContent = panel.classList.contains("expanded") ? "⯆" : "⯈";
-};
+function initUIInteractions() {
+    const sonoHeader = document.getElementById("sono-header");
+    const sonoPanel = document.getElementById("sono-panel");
+    const sonoToggle = document.getElementById("sono-toggle");
+    const sidebar = document.getElementById("sidebar");
+    const sidebarToggle = document.getElementById("sidebar-toggle");
+
+    if (sonoHeader && sonoPanel && sonoToggle) {
+        sonoHeader.onclick = () => {
+            sonoPanel.classList.toggle("collapsed");
+            const collapsed = sonoPanel.classList.contains("collapsed");
+            sonoToggle.textContent = collapsed ? "⯈" : "⯆";
+        };
+    }
+
+    if (sidebar && sidebarToggle) {
+        sidebarToggle.onclick = () => {
+            sidebar.classList.toggle("sidebar-collapsed");
+        };
+    }
+}
 
 // ======================================================
 // INITIALISATION GLOBALE
@@ -537,6 +554,7 @@ document.getElementById("sono-header").onclick = () => {
 
 window.onload = () => {
     initMap();
+    initUIInteractions();
     loadMetar();
     loadTaf();
     loadFids();
