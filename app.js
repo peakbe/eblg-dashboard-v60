@@ -407,15 +407,32 @@ function updateFidsUI(data) {
 // ======================================================
 
 function initMap() {
-    map = L.map("map").setView([50.643, 5.443], 11);
-document.getElementById("reset-map").onclick = () => {
-    map.setView([50.643, 5.443], 11);
-};
 
+    // Initialisation de la carte
+    map = L.map("map", {
+        zoomControl: true,
+        scrollWheelZoom: true
+    }).setView([50.643, 5.443], 11);
+
+    // Bouton reset carte
+    const resetBtn = document.getElementById("reset-map");
+    if (resetBtn) {
+        resetBtn.onclick = () => {
+            map.setView([50.643, 5.443], 11);
+        };
+    }
+
+    // Fond de carte
     L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
-        maxZoom: 18
+        maxZoom: 19,
+        attribution: "&copy; OpenStreetMap"
     }).addTo(map);
 
+    // Couches runway + corridor
+    runwayLayer = L.layerGroup().addTo(map);
+    corridorLayer = L.layerGroup().addTo(map);
+
+    // Sonomètres
     initSonometers(map);
 }
 
