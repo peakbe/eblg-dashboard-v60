@@ -106,3 +106,37 @@ export function initSonometers(map) {
         sonometers[s.id] = { ...s, marker, status: "UNKNOWN" };
     });
 }
+export let heatHistory = [];
+export const MAX_HISTORY = 50; // 50 snapshots
+
+export function snapshotHeatmap() {
+    const snapshot = Object.values(sonometers).map(s => ({
+        lat: s.lat,
+        lon: s.lon,
+        color: s.marker.options.color
+    }));
+
+    heatHistory.push(snapshot);
+    if (heatHistory.length > MAX_HISTORY) heatHistory.shift();
+}
+export async function playHeatmapHistory(map) {
+    for (const snapshot of heatHistory) {
+        if (heatLayer) map.removeLayer(heatLayer);
+
+        const points = snapshot.map(s => {
+            let weight = 0.2;
+            if (s.color === "green") weight = 0.6;
+            if (s.color === "red") weight = 1.0;
+            return [s.lat, s.lon, weight];
+        });
+
+        heatLayer = L.heatLayer(points, {
+            radius: 35,
+            blur: 25,
+            maxZoom: 12,
+            minOpacity: 0.3
+        }).addTo(map);
+
+        await new Promise(r => setTimeout(r, 300));
+    }
+}
