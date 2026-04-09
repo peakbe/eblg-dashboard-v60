@@ -1,17 +1,45 @@
+// ======================================================
+// FIDS — VERSION PRO+
+// Chargement sécurisé, logs propres, UI robuste.
+// ======================================================
+
 import { ENDPOINTS } from "./config.js";
 import { fetchJSON } from "./helpers.js";
 
-/**
- * Charge les FIDS.
- */
+
+// ------------------------------------------------------
+// Logging PRO+
+// ------------------------------------------------------
+const IS_DEV = location.hostname.includes("localhost") || location.hostname.includes("127.0.0.1");
+const log = (...a) => IS_DEV && console.log("[FIDS]", ...a);
+const logErr = (...a) => console.error("[FIDS ERROR]", ...a);
+
+
+// ------------------------------------------------------
+// Chargement sécurisé
+// ------------------------------------------------------
+export async function safeLoadFids() {
+    try {
+        await loadFids();
+        log("FIDS chargé");
+    } catch (err) {
+        logErr("Erreur FIDS :", err);
+    }
+}
+
+
+// ------------------------------------------------------
+// Chargement brut
+// ------------------------------------------------------
 export async function loadFids() {
     const data = await fetchJSON(ENDPOINTS.fids);
     updateFidsUI(data);
 }
 
-/**
- * Met à jour l’UI FIDS.
- */
+
+// ------------------------------------------------------
+// Mise à jour UI
+// ------------------------------------------------------
 export function updateFidsUI(data) {
     const container = document.getElementById("fids");
     if (!container) return;
