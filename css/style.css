@@ -1,0 +1,593 @@
+/* ======================================================
+   GLOBAL
+====================================================== */
+
+body {
+    margin: 0;
+    padding: 0;
+    background: #0f1114;
+    color: #e6e6e6;
+    font-family: "Segoe UI", Roboto, sans-serif;
+    overflow: hidden;
+}
+
+h2 {
+    margin: 0 0 8px 0;
+    font-size: 16px;
+    font-weight: 600;
+    color: #cfd3d8;
+}
+
+.data-block {
+    background: #1c1f23;
+    padding: 8px;
+    border-radius: 4px;
+    border: 1px solid #2a2f35;
+    font-size: 14px;
+}
+
+
+/* ======================================================
+   SIDEBAR
+====================================================== */
+
+.sidebar {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 280px;
+    height: 100vh;
+    background: rgba(20, 22, 26, 0.92);
+    backdrop-filter: blur(6px);
+    border-right: 1px solid #2a2f35;
+    padding: 12px;
+    overflow-y: auto;
+    transition: transform 0.25s ease;
+}
+
+.sidebar-collapsed {
+    transform: translateX(-260px);
+}
+
+.sidebar-toggle {
+    position: absolute;
+    top: 12px;
+    right: -32px;
+    width: 28px;
+    height: 28px;
+    background: #1c1f23;
+    border: 1px solid #2a2f35;
+    border-radius: 4px;
+    color: #cfd3d8;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+/* ======================================================
+   PANELS
+====================================================== */
+
+.panel {
+    margin-bottom: 18px;
+}
+
+#sono-header {
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#sono-panel.collapsed {
+    display: none;
+}
+
+
+/* ======================================================
+   SONOMETER LIST
+====================================================== */
+
+.sono-list {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.sono-item {
+    padding: 6px 8px;
+    background: #1c1f23;
+    border: 1px solid #2a2f35;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background 0.2s ease;
+}
+
+.sono-item:hover {
+    background: #262a30;
+}
+
+.sono-highlight {
+    background: #2f3b4a !important;
+    border-color: #3f4f63 !important;
+}
+
+
+/* ======================================================
+   DETAIL PANEL (RIGHT SIDE)
+====================================================== */
+
+.detail-panel {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 260px;
+    height: 100vh;
+    background: rgba(20, 22, 26, 0.92);
+    backdrop-filter: blur(6px);
+    border-left: 1px solid #2a2f35;
+    padding: 16px;
+    overflow-y: auto;
+    transition: transform 0.25s ease;
+}
+
+.detail-panel.hidden {
+    transform: translateX(260px);
+}
+
+
+/* ======================================================
+   MAP
+====================================================== */
+
+#map {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 1;
+}
+
+
+/* ======================================================
+   FLOATING BUTTONS
+====================================================== */
+
+.floating-buttons {
+    position: absolute;
+    bottom: 20px;
+    left: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    z-index: 999;
+}
+
+.float-btn {
+    padding: 8px 12px;
+    background: #1c1f23;
+    border: 1px solid #2a2f35;
+    border-radius: 4px;
+    color: #cfd3d8;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background 0.2s ease;
+}
+
+.float-btn:hover {
+    background: #262a30;
+}
+
+.float-btn.off {
+    opacity: 0.5;
+}
+
+
+/* ======================================================
+   FIDS
+====================================================== */
+
+.fids-container {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.fids-row {
+    padding: 6px 8px;
+    border-radius: 4px;
+    background: #1c1f23;
+    border: 1px solid #2a2f35;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    font-size: 13px;
+}
+
+.fids-on-time {
+    border-color: #2e7d32;
+}
+
+.fids-delayed {
+    border-color: #ff9800;
+}
+
+.fids-cancelled {
+    border-color: #d32f2f;
+}
+
+.fids-boarding {
+    border-color: #1976d2;
+}
+
+
+/* ======================================================
+   STATUS PANEL
+====================================================== */
+
+.status-panel {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.status-ok {
+    color: #4caf50;
+}
+
+.status-fail {
+    color: #f44336;
+}
+
+
+/* ======================================================
+   DEBUG PANEL
+====================================================== */
+
+.debug-panel {
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    background: rgba(20, 22, 26, 0.92);
+    backdrop-filter: blur(6px);
+    padding: 10px 14px;
+    border-radius: 6px;
+    border: 1px solid #2a2f35;
+    font-size: 13px;
+    z-index: 999;
+}
+
+.debug-panel div {
+    margin-bottom: 4px;
+}
+
+
+/* ======================================================
+   RUNWAY NUMBERS
+====================================================== */
+
+.runway-number {
+    color: white;
+    font-weight: bold;
+    font-size: 14px;
+    text-shadow: 0 0 4px black;
+}
+/* ======================================================
+   RESPONSIVE PRO+ (MOBILE & TABLET)
+====================================================== */
+
+/* ----------- TABLETTES (≤ 1024px) ----------- */
+@media (max-width: 1024px) {
+
+    .sidebar {
+        width: 240px;
+    }
+
+    .detail-panel {
+        width: 220px;
+    }
+
+    .fids-row {
+        font-size: 12px;
+        grid-template-columns: 1fr 1fr 1fr 1fr;
+    }
+
+    .float-btn {
+        font-size: 13px;
+        padding: 6px 10px;
+    }
+}
+
+
+/* ----------- SMARTPHONES (≤ 768px) ----------- */
+@media (max-width: 768px) {
+
+    /* Sidebar devient un drawer */
+    .sidebar {
+        width: 240px;
+        transform: translateX(-240px);
+        position: fixed;
+        z-index: 9999;
+    }
+
+    .sidebar-collapsed {
+        transform: translateX(0);
+    }
+
+    .sidebar-toggle {
+        right: -36px;
+        top: 10px;
+    }
+
+    /* Panneau détail devient un drawer à droite */
+    .detail-panel {
+        width: 240px;
+        transform: translateX(240px);
+        position: fixed;
+        z-index: 9999;
+    }
+
+    .detail-panel.hidden {
+        transform: translateX(240px);
+    }
+
+    .detail-panel:not(.hidden) {
+        transform: translateX(0);
+    }
+
+    /* Carte prend tout l’écran */
+    #map {
+        width: 100vw;
+        height: 100vh;
+    }
+
+    /* FIDS lisible sur mobile */
+    .fids-row {
+        grid-template-columns: 1fr 1fr;
+        grid-row-gap: 4px;
+        font-size: 12px;
+    }
+
+    .fids-row span:nth-child(3),
+    .fids-row span:nth-child(4) {
+        opacity: 0.8;
+        font-size: 11px;
+    }
+
+    /* Boutons flottants repositionnés */
+    .floating-buttons {
+        bottom: 12px;
+        left: 12px;
+        gap: 8px;
+    }
+
+    .float-btn {
+        padding: 6px 10px;
+        font-size: 12px;
+    }
+
+    /* Debug panel réduit */
+    .debug-panel {
+        bottom: 12px;
+        right: 12px;
+        padding: 8px 10px;
+        font-size: 11px;
+    }
+}
+
+
+/* ----------- PETITS SMARTPHONES (≤ 480px) ----------- */
+@media (max-width: 480px) {
+
+    h2 {
+        font-size: 14px;
+    }
+
+    .data-block {
+        font-size: 12px;
+        padding: 6px;
+    }
+
+    .sono-item {
+        font-size: 12px;
+        padding: 5px 6px;
+    }
+
+    .fids-row {
+        font-size: 11px;
+        padding: 5px 6px;
+    }
+
+    .float-btn {
+        font-size: 11px;
+        padding: 5px 8px;
+    }
+
+    .sidebar-toggle {
+        width: 26px;
+        height: 26px;
+        font-size: 12px;
+    }
+}
+/* ======================================================
+   THEME DARK RADAR / JEPPESEN PRO+
+   Palette cockpit IFR : graphite, cyan radar, bleu nuit
+====================================================== */
+
+/* ----------- PALETTE ----------- */
+/*
+Graphite profond : #0c0e11
+Bleu nuit ATC : #11141a
+Bleu Jeppesen : #1e2a38
+Cyan radar : #00e5ff
+Cyan doux : #66f0ff
+Gris cockpit : #2a2f35
+*/
+
+
+/* ======================================================
+   GLOBAL
+====================================================== */
+
+body {
+    background: #0c0e11;
+    color: #d8e0e6;
+}
+
+h2 {
+    color: #a9b7c6;
+    letter-spacing: 0.5px;
+}
+
+.data-block {
+    background: #11141a;
+    border: 1px solid #1e2a38;
+}
+
+
+/* ======================================================
+   SIDEBAR
+====================================================== */
+
+.sidebar {
+    background: rgba(12, 14, 17, 0.92);
+    border-right: 1px solid #1e2a38;
+}
+
+.sidebar-toggle {
+    background: #11141a;
+    border-color: #1e2a38;
+    color: #66f0ff;
+}
+
+.sidebar-toggle:hover {
+    background: #1e2a38;
+}
+
+
+/* ======================================================
+   SONOMETERS LIST
+====================================================== */
+
+.sono-item {
+    background: #11141a;
+    border-color: #1e2a38;
+    color: #d8e0e6;
+}
+
+.sono-item:hover {
+    background: #1a1f26;
+}
+
+.sono-highlight {
+    background: #1e2a38 !important;
+    border-color: #00e5ff !important;
+}
+
+
+/* ======================================================
+   DETAIL PANEL
+====================================================== */
+
+.detail-panel {
+    background: rgba(12, 14, 17, 0.92);
+    border-left: 1px solid #1e2a38;
+}
+
+.detail-panel h2 {
+    color: #00e5ff;
+}
+
+
+/* ======================================================
+   FIDS
+====================================================== */
+
+.fids-row {
+    background: #11141a;
+    border-color: #1e2a38;
+    color: #d8e0e6;
+}
+
+.fids-on-time {
+    border-color: #00e676;
+}
+
+.fids-delayed {
+    border-color: #ffb74d;
+}
+
+.fids-cancelled {
+    border-color: #ef5350;
+}
+
+.fids-boarding {
+    border-color: #42a5f5;
+}
+
+
+/* ======================================================
+   FLOATING BUTTONS
+====================================================== */
+
+.float-btn {
+    background: #11141a;
+    border-color: #1e2a38;
+    color: #66f0ff;
+}
+
+.float-btn:hover {
+    background: #1a1f26;
+}
+
+.float-btn.off {
+    opacity: 0.4;
+}
+
+
+/* ======================================================
+   DEBUG PANEL
+====================================================== */
+
+.debug-panel {
+    background: rgba(12, 14, 17, 0.92);
+    border-color: #1e2a38;
+    color: #66f0ff;
+}
+
+
+/* ======================================================
+   RUNWAY NUMBERS
+====================================================== */
+
+.runway-number {
+    color: #00e5ff;
+    text-shadow: 0 0 6px #00e5ff;
+    font-weight: 700;
+}
+
+
+/* ======================================================
+   MAP OVERLAY (Leaflet)
+====================================================== */
+
+.leaflet-control-zoom a {
+    background: #11141a !important;
+    border: 1px solid #1e2a38 !important;
+    color: #66f0ff !important;
+}
+
+.leaflet-control-zoom a:hover {
+    background: #1e2a38 !important;
+}
+
+
+/* ======================================================
+   HEATMAP (accent radar)
+====================================================== */
+
+.leaflet-heatmap-layer {
+    filter: hue-rotate(180deg) brightness(1.2);
+}
